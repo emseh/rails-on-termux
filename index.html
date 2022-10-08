@@ -13,9 +13,87 @@
   <p>
     Rendering HTML templates, updating databases, sending and receiving emails, maintaining live pages via WebSockets, enqueuing jobs for asynchronous work, storing uploads in the cloud, providing solid security protections for common attacks. Rails does it all and so much more.
   </p>
-  <em>Read <a href="https://rubyonrails.org/">Ruby on Rails</a> for more details.</em>
+  <em>Read <a href="https://rubyonrails.org/" target="_blank">Ruby on Rails</a> for more details.</em>
   <p>
     With Rails in termux, you can develop your own projects with your smartphone or tablet.
   </p>
+
+  <h4>
+    What can you do after installing Rails on Termux?
+  </h4>
+
+  <ol>
+    <li>Build new project.</li>
+    <li>Integration your apps into databases like <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a>.</li>
+    <li>Managing ruby versions using <a href="https://github.com/rbenv/rbenv" target="_blank">rbenv</a>.</li>
+    <li>Managing node version using <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a>.</li>
+    <li>Deploying to production.</li>
+  </ol>
+
+  <h2>Getting Started with Rails on Termux</h2>
+  <h3>Installing Termux</h3>
+  <p>
+    <a href="https://github.com/termux/termux-app" target="_blank">Termux</a> is an Android terminal emulator and Linux environment application that works directly with no rooting or setup required. A minimal base system is installed automatically, additional packages are available using the package manager.
+  </p>
+  <p>Termux application can be obtained from F-Droid from <a href="https://f-droid.org/en/packages/com.termux/" target="_blank">here</a>.</p>
+  <p>
+    <strong>Notice: </strong>
+    Termux and its plugins are no longer updated on <a href="https://play.google.com/store/apps/details?id=com.termux" target="_blank">Google Play</a> Store due to <a href="https://github.com/termux/termux-packages/wiki/Termux-and-Android-10" target="_blank">android 10 issues</a> and have been deprecated. The last version released for Android >= 7 was v0.101. It is highly recommended to not install Termux apps from Play Store any more.
+  </p>
+  <p>
+    You do not need to download the F-Droid app (via the Download F-Droid link) to install Termux. You can download the Termux APK directly from the site by clicking the Download APK link at the bottom of each version section.
+  </p>
+
+  <p>If you have installed termux in your device you can proceed with updating the packages in your termux with command like below:</p>
+
+  <code>pkg update && pkg upgrade -y</code>
+
+  <p>After all packages are updated the next step is to install ubuntu in your termux.</p>
+
+  <h3>Installing Ubuntu</h3>
+
+  <h4>why should install ubuntu?</h4>
+
+  <p>
+    The reason we're going to be using Ubuntu is because the majority of code you write will run on a Linux server. Ubuntu is one of the easiest Linux distributions to use with lots of documentation so it's a great one to start with (quoted from <a href="https://twitter.com/excid3" target="_blank">Chris Oliver</a> from <a href="https://gorails.com/">Gorails</a>). 
+  </p>
+
+  <p>
+    To install ubuntu on termux, I recommend using the script from <a href="https://github.com/MFDGaming/ubuntu-in-termux" target="_blank">ubuntu-in-termux</a> created by <a href="https://twitter.com/MFDGaming_" target="_blank">Alexander Argentakis</a> a.k.a <a href="https://github.com/MFDGaming" target="_blank">MFDGaming</a>, big thanks for making it easier to manage ubuntu from termux 🍻.
+  </p>
+
+  <p>
+    For an alternative you can also use <a href="https://wiki.termux.com/wiki/PRoot" target="_blank">proot-distro</a> coming from termux. but why don't I use it?, since the last time I used ubuntu proot-distro, there were a lot of dependencies that were broken during the update and a lot of tweaking needed to solve the problem. You can regularly look at the repos to see if there are any new updates from <a href="https://github.com/Neo-Oli/termux-ubuntu">termux-ubuntu</a>.
+  </p>
+
+  <p>Here are the steps to install ubuntu using <a href="https://github.com/MFDGaming/ubuntu-in-termux" target="_blank">ubuntu-in-termux</a>:</p>
+
+
+  <ol>
+    <li>Update termux: <code>apt-get update && apt-get upgrade -y</code></li>
+    <li>Install wget: <code>apt-get install wget -y</code></li>
+    <li>Install proot: <code>apt-get install proot -y</code></li>
+    <li>Install git: <code>apt-get install git -y</code></li>
+    <li>Go to HOME folder: <code>cd ~</code></li>
+    <li>Download script: <code>git clone https://github.com/MFDGaming/ubuntu-in-termux.git</code></li>
+    <li>Go to script folder: <code>cd ubuntu-in-termux</code></li>
+    <li>Give execution permission: <code>chmod +x ubuntu.sh</code></li>
+    <li>Run the script: <code>./ubuntu.sh -y</code></li>
+    <li>Now just start ubuntu: <code>./startubuntu.sh</code></li>
+  </ol>
+
+  <p>If you have installed ubuntu in termux, you can proceed with updating packages and installing some dependencies by using below command:</p>
+
+  <ul>
+    <li><code>apt update</code></li>
+    <li><code>apt install bash-completion dialog vim nano sudo cron</code></li>
+    <li><code>apt upgrade -y</code></li>
+  </ul>
+
+  <p>After you finish installing ubuntu need some adjustments to make ubuntu on your termux according to the standard like you install ubuntu in general such as setting the time zone, keyboard type etc.</p>
+
+  <p>You can follow the command as below:</p>
+
+
 </body>
 </html>
