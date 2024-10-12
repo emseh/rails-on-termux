@@ -208,9 +208,7 @@ echo "su - emseh" >> ~/.bash_login
 
 **Note:** Please make sure you are using the `ubuntu terminal` in your `proot-distro` for this step.
 
-The following steps are based on the guide from the [GoRails](https://gorails.com/) website. You can follow the instructions there up to the step for installing Git. However, for the database setup, we will use a different method.
-
-If you follow the guide, don't forget to add these two database dependencies: `libpq-dev` and `libmysqlclient-dev`, as they are not included in the commands for installing Ruby dependencies.
+The following steps are based on the guide from the [GoRails](https://gorails.com/) website. You can follow the instructions there up to the step for Configuring Git. However, for the database setup, we will use a different method.
 
 ### Installing Ruby on proot-distro ubuntu
 
