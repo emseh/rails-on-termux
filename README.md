@@ -6,7 +6,7 @@ Rendering HTML templates, updating databases, sending and receiving emails, main
 
 *Read [Ruby on Rails](https://rubyonrails.org/) for more details.*
 
-With Rails in termux, you can develop your own projects with your smartphone or tablet.
+With Rails in termux, you can develop your own projects with your Android.
 
 ## Getting Started with Rails on Termux
 
@@ -700,8 +700,18 @@ production:
 
 ```
 
-railsontermux.github.io
-
 Install Ruby On Rails using Termux.
 
 https://emseh.github.io/rails-on-termux/
+
+References:
+
+https://gorails.com/setup/ubuntu/24.04
+
+https://kskroyal.com/disable-phantom-process-killer-in-android-12-13/
+
+https://wiki.termux.com/wiki/Postgresql
+
+https://wiki.termux.com/wiki/MariaDB
+
+https://www.server-world.info/en/note?os=Ubuntu_24.04&p=initial_conf&f=1
