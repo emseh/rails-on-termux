@@ -1,99 +1,679 @@
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rails On Termux</title>
-</head>
-<body>
-  <h1>Rails On Termux</h1>
-  <p>
-    Rails is a full-stack framework. It ships with all the tools needed to build amazing web apps on both the front and back end.
-  </p>
-  <p>
-    Rendering HTML templates, updating databases, sending and receiving emails, maintaining live pages via WebSockets, enqueuing jobs for asynchronous work, storing uploads in the cloud, providing solid security protections for common attacks. Rails does it all and so much more.
-  </p>
-  <em>Read <a href="https://rubyonrails.org/" target="_blank">Ruby on Rails</a> for more details.</em>
-  <p>
-    With Rails in termux, you can develop your own projects with your smartphone or tablet.
-  </p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rails On Termux</title>
+    <style>
+      /* Global Styles */
+      body {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #000;
+        color: #33ff33;
+        margin: 0;
+        padding: 0;
+        line-height: 1.8;
+      }
 
-  <h4>
-    What can you do after installing Rails on Termux?
-  </h4>
+      header {
+        background-color: #111;
+        color: #33ff33;
+        padding: 20px;
+        text-align: center;
+        font-size: 2.5em;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 10px rgba(0, 255, 0, 0.1);
+        border-bottom: 2px solid #33ff33;
+      }
 
-  <ol>
-    <li>Build new project.</li>
-    <li>Integration your apps into databases like <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a>.</li>
-    <li>Managing ruby versions using <a href="https://github.com/rbenv/rbenv" target="_blank">rbenv</a>.</li>
-    <li>Managing node version using <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm</a>.</li>
-    <li>Deploying to production.</li>
-  </ol>
+      section {
+        padding: 30px;
+        margin: 30px auto;
+        max-width: 900px;
+        background-color: #111;
+        border: 1px solid #33ff33;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        transition: box-shadow 0.3s ease;
+        color: #33ff33;
+      }
 
-  <h2>Getting Started with Rails on Termux</h2>
-  <h3>Installing Termux</h3>
-  <p>
-    <a href="https://github.com/termux/termux-app" target="_blank">Termux</a> is an Android terminal emulator and Linux environment application that works directly with no rooting or setup required. A minimal base system is installed automatically, additional packages are available using the package manager.
-  </p>
-  <p>Termux application can be obtained from F-Droid from <a href="https://f-droid.org/en/packages/com.termux/" target="_blank">here</a>.</p>
-  <p>
-    <strong>Notice: </strong>
-    Termux and its plugins are no longer updated on <a href="https://play.google.com/store/apps/details?id=com.termux" target="_blank">Google Play</a> Store due to <a href="https://github.com/termux/termux-packages/wiki/Termux-and-Android-10" target="_blank">android 10 issues</a> and have been deprecated. The last version released for Android >= 7 was v0.101. It is highly recommended to not install Termux apps from Play Store any more.
-  </p>
-  <p>
-    You do not need to download the F-Droid app (via the Download F-Droid link) to install Termux. You can download the Termux APK directly from the site by clicking the Download APK link at the bottom of each version section.
-  </p>
+      section:hover {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+      }
 
-  <p>If you have installed termux in your device you can proceed with updating the packages in your termux with command like below:</p>
+      p,
+      li {
+        font-size: 1.2em;
+        color: #33ff33;
+      }
 
-  <code>pkg update && pkg upgrade -y</code>
+      h2 {
+        color: #33ff33;
+        font-size: 2em;
+        border-bottom: 1px solid #33ff33;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
 
-  <p>After all packages are updated the next step is to install ubuntu in your termux.</p>
+      h4 {
+        color: #ff0000;
+        font-size: 1.4em;
+        margin-top: 30px;
+      }
 
-  <h3>Installing Ubuntu</h3>
+      a {
+        color: #33ff33;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
 
-  <h4>why should install ubuntu?</h4>
+      a:hover {
+        color: #ff0000;
+        text-decoration: underline;
+      }
 
-  <p>
-    The reason we're going to be using Ubuntu is because the majority of code you write will run on a Linux server. Ubuntu is one of the easiest Linux distributions to use with lots of documentation so it's a great one to start with (quoted from <a href="https://twitter.com/excid3" target="_blank">Chris Oliver</a> from <a href="https://gorails.com/">Gorails</a>). 
-  </p>
+      /* Inline Text Styles */
+      em {
+        color: #33cc33;
+        font-style: italic;
+      }
 
-  <p>
-    To install ubuntu on termux, I recommend using the script from <a href="https://github.com/MFDGaming/ubuntu-in-termux" target="_blank">ubuntu-in-termux</a> created by <a href="https://twitter.com/MFDGaming_" target="_blank">Alexander Argentakis</a> a.k.a <a href="https://github.com/MFDGaming" target="_blank">MFDGaming</a>, big thanks for making it easier to manage ubuntu from termux 🍻.
-  </p>
+      strong {
+        color: #33ff33;
+        font-weight: bold;
+      }
 
-  <p>
-    For an alternative you can also use <a href="https://wiki.termux.com/wiki/PRoot" target="_blank">proot-distro</a> coming from termux. but why don't I use it?, since the last time I used ubuntu proot-distro, there were a lot of dependencies that were broken during the update and a lot of tweaking needed to solve the problem. You can regularly look at the repos to see if there are any new updates from <a href="https://github.com/Neo-Oli/termux-ubuntu">termux-ubuntu</a>.
-  </p>
+      /* Code and Preformatted Block Styles */
+      pre {
+        background-color: #111;
+        color: #00ff00;
+        padding: 20px;
+        border-left: 5px solid #33ff33;
+        border-radius: 5px;
+        font-size: 1.1em;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        line-height: 1.6em;
+      }
 
-  <p>Here are the steps to install ubuntu using <a href="https://github.com/MFDGaming/ubuntu-in-termux" target="_blank">ubuntu-in-termux</a>:</p>
+      code {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #222;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #33ff33;
+        font-size: 1.1em;
+      }
 
+      /* Notice Box Styles */
+      .notice {
+        background-color: #222;
+        border-left: 5px solid #ff0000;
+        padding: 15px;
+        margin: 25px 0;
+        border-radius: 5px;
+        font-size: 1.1em;
+        color: #ff0000;
+      }
 
-  <ol>
-    <li>Update termux: <code>apt-get update && apt-get upgrade -y</code></li>
-    <li>Install wget: <code>apt-get install wget -y</code></li>
-    <li>Install proot: <code>apt-get install proot -y</code></li>
-    <li>Install git: <code>apt-get install git -y</code></li>
-    <li>Go to HOME folder: <code>cd ~</code></li>
-    <li>Download script: <code>git clone https://github.com/MFDGaming/ubuntu-in-termux.git</code></li>
-    <li>Go to script folder: <code>cd ubuntu-in-termux</code></li>
-    <li>Give execution permission: <code>chmod +x ubuntu.sh</code></li>
-    <li>Run the script: <code>./ubuntu.sh -y</code></li>
-    <li>Now just start ubuntu: <code>./startubuntu.sh</code></li>
-  </ol>
+      /* List Styles */
+      ul,
+      ol {
+        margin-left: 30px;
+        font-size: 1.2em;
+      }
 
-  <p>If you have installed ubuntu in termux, you can proceed with updating packages and installing some dependencies by using below command:</p>
+      ul {
+        list-style-type: disc;
+      }
 
-  <ul>
-    <li><code>apt update</code></li>
-    <li><code>apt install bash-completion dialog vim nano sudo cron</code></li>
-    <li><code>apt upgrade -y</code></li>
-  </ul>
+      ul.square {
+        list-style-type: square;
+      }
 
-  <p>After you finish installing ubuntu need some adjustments to make ubuntu on your termux according to the standard like you install ubuntu in general such as setting the time zone, keyboard type etc.</p>
+      li {
+        margin-bottom: 10px;
+      }
 
-  <p>You can follow the command as below:</p>
+      /* Animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
+      section {
+        animation: fadeIn 1.5s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Rails On Termux</header>
 
-</body>
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        Rails is a full-stack framework. It ships with all the tools needed to
+        build amazing web apps on both the front and back end.
+      </p>
+      <p>
+        Rendering HTML templates, updating databases, sending and receiving
+        emails, maintaining live pages via WebSockets, enqueuing jobs for
+        asynchronous work, storing uploads in the cloud, providing solid
+        security protections for common attacks. Rails does it all and so much
+        more.
+      </p>
+      <p>
+        <em
+          >Read <a href="https://rubyonrails.org/">Ruby on Rails</a> for more
+          details.</em
+        >
+      </p>
+      <p>
+        With Rails in Termux, you can develop your own projects with your
+        smartphone or tablet.
+      </p>
+    </section>
+
+    <section>
+      <h2>Getting Started with Rails on Termux</h2>
+
+      <h3>Installing Termux</h3>
+      <p>
+        <a href="https://github.com/termux/termux-app">Termux</a> is an Android
+        terminal emulator and Linux environment application that works directly
+        with no rooting or setup required. A minimal base system is installed
+        automatically, additional packages are available using the package
+        manager.
+      </p>
+      <p>
+        Termux application can be obtained from F-Droid from
+        <a href="https://f-droid.org/en/packages/com.termux/">here</a>.
+      </p>
+
+      <div class="notice">
+        <strong>Notice:</strong> Termux and its plugins are no longer updated on
+        <a href="https://play.google.com/store/apps/details?id=com.termux"
+          >Google Play</a
+        >
+        Store due to
+        <a
+          href="https://github.com/termux/termux-packages/wiki/Termux-and-Android-10"
+          >android 10 issues</a
+        >
+        and have been deprecated. It is highly recommended to not install Termux
+        apps from Play Store anymore.
+      </div>
+
+      <p>
+        If you have installed Termux in your device, you can proceed with
+        updating the packages in your Termux with the following command:
+      </p>
+
+      <pre><code>
+pkg update && pkg upgrade -y
+</code></pre>
+
+      <p>
+        After all packages are updated, the next step is to install Ubuntu in
+        your Termux.
+      </p>
+
+      <h3>Install Ubuntu</h3>
+      <p><strong>"Why should install Ubuntu?"</strong></p>
+      <p>
+        The reason we're going to be using Ubuntu is because the majority of
+        code you write will run on a Linux server. Ubuntu is one of the easiest
+        Linux distributions to use with lots of documentation, so it's a great
+        one to start with.
+      </p>
+
+      <p>
+        To install Ubuntu on Termux, I recommend using the
+        <a href="https://wiki.termux.com/wiki/PRoot">PRoot Distro</a>.
+      </p>
+
+      <p>For a quick installation, you can use this command:</p>
+
+      <pre><code>
+pkg install proot-distro
+</code></pre>
+
+      <p>Then you can continue to install Ubuntu using this command:</p>
+
+      <pre><code>
+proot-distro install ubuntu
+</code></pre>
+
+      <h3>Setup Ubuntu</h3>
+      <p>
+        After installing Ubuntu in your Termux via
+        <a href="https://wiki.termux.com/wiki/PRoot">PRoot Distro</a>, you can
+        log in with the following command:
+      </p>
+
+      <pre><code>
+proot-distro login ubuntu
+</code></pre>
+
+      <p>
+        Once logged in, you need to install some dependencies on your Ubuntu
+        using these commands:
+      </p>
+
+      <pre><code>
+apt update
+apt install bash-completion dialog vim nano sudo cron htop curl wget git man-db -y
+apt install tzdata neofetch apt-utils libmysqlclient-dev libpq-dev -y
+apt upgrade -y
+</code></pre>
+
+      <p>
+        Run <code>dpkg-reconfigure tzdata</code> if you wish to change
+        <em>Current default time zone</em>, <em>Local time</em>, and
+        <em>Universal Time</em>.
+      </p>
+
+      <h3>Create New User on Ubuntu</h3>
+      <p>
+        After installing Ubuntu System, there is only a user you configured
+        during installation, except for system accounts, and this user is an
+        administrative user. If you'd like to add more common user accounts on
+        the system, configure it like this:
+      </p>
+
+      <p>
+        For example, to add a user named <code>emseh</code>, run the following
+        command:
+      </p>
+
+      <pre><code>
+sudo adduser emseh
+</code></pre>
+
+      <p>Follow the prompts to set up the new user:</p>
+
+      <pre><code>
+[sudo] password for ubuntu:  # input your password
+info: Adding user `emseh' ...
+info: Creating home directory `/home/emseh' ...
+New password:           # set user password
+Retype new password:    # confirm password
+passwd: password updated successfully
+</code></pre>
+
+      <p>
+        Once the user is created, you can give privileges to the new user by
+        running:
+      </p>
+
+      <pre><code>
+sudo usermod -aG sudo emseh
+</code></pre>
+
+      <p>
+        To edit the sudoers file and give administrative rights to the new user,
+        run the following command:
+      </p>
+
+      <pre><code>
+visudo
+</code></pre>
+
+      <p>Inside the file, add the new user under root privileges as shown:</p>
+
+      <pre><code>
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+emseh   ALL=(ALL:ALL) ALL
+</code></pre>
+
+      <p>To log in using the new user, use the following command:</p>
+
+      <pre><code>
+su - emseh
+</code></pre>
+
+      <p>
+        You can also configure automatic login for the new user in the PRoot
+        Ubuntu system by adding the following command to your
+        <code>~/.bash_login</code> file:
+      </p>
+
+      <pre><code>
+echo "su - emseh" >> ~/.bash_login
+</code></pre>
+
+      <h3>Installing Ruby on Rails</h3>
+
+      <p>
+        <strong>Note:</strong> Please make sure you are using the Ubuntu
+        terminal in your proot-distro for this step.
+      </p>
+
+      <p>
+        The following steps are based on the guide from the
+        <a href="https://gorails.com/">GoRails</a> website. You can follow the
+        instructions there up to the step for installing Git. However, for the
+        database setup, we will use a different method.
+      </p>
+
+      <p>
+        If you follow the guide, don't forget to add these two database
+        dependencies: <code>libpq-dev</code> and
+        <code>libmysqlclient-dev</code>.
+      </p>
+
+      <h4>Installing Ruby on proot-distro Ubuntu</h4>
+      <p>
+        The first step is to install dependencies for compiling Ruby. Run the
+        following commands:
+      </p>
+
+      <pre><code>
+sudo apt-get update
+sudo apt-get install git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev libpq-dev libmysqlclient-dev
+</code></pre>
+
+      <p>
+        We will install Ruby using a version manager called
+        <a href="https://asdf-vm.com/">ASDF</a>, which can also manage other
+        languages like Node.js.
+      </p>
+
+      <h4>Installing ASDF</h4>
+      <p>To install ASDF, run the following commands:</p>
+
+      <pre><code>
+git clone https://github.com/excid3/asdf.git ~/.asdf
+echo '. "$HOME/.asdf/asdf.sh"' >> ~/.bashrc
+echo '. "$HOME/.asdf/completions/asdf.bash"' >> ~/.bashrc
+exec $SHELL
+</code></pre>
+
+      <p>Now, install the ASDF plugins for Ruby and Node.js:</p>
+
+      <pre><code>
+asdf plugin add ruby
+asdf plugin add nodejs
+</code></pre>
+
+      <h4>Installing Ruby and Node.js</h4>
+      <p>
+        To install Ruby and set the default version, run the following commands:
+      </p>
+
+      <pre><code>
+asdf install ruby 3.3.5
+asdf global ruby 3.3.5
+</code></pre>
+
+      <p>Then, confirm the installation:</p>
+
+      <pre><code>
+ruby -v
+</code></pre>
+
+      <p>Next, install the latest Node.js version:</p>
+
+      <pre><code>
+asdf install nodejs 20.18.0
+asdf global nodejs 20.18.0
+</code></pre>
+
+      <h3>Database Setup on Termux</h3>
+
+      <p>
+        <strong
+          >"What are the reasons for me to install the database on Termux
+          instead of PRoot Distro Ubuntu?"</strong
+        >
+      </p>
+
+      <p>
+        Here’s a brief explanation of why you should not install PostgreSQL and
+        MySQL on PRoot Distro Ubuntu:
+      </p>
+      <ul>
+        <li>
+          <strong>PostgreSQL:</strong> Fails during bootstrap due to directory
+          ownership issues, preventing proper initialization.
+        </li>
+        <li>
+          <strong>MySQL:</strong> Encounters a "Segmentation fault" when
+          starting the service, while it runs smoothly in Termux using
+          <code>mysqld_safe</code>.
+        </li>
+      </ul>
+
+      <h4>PostgreSQL Installation on Termux</h4>
+      <p>
+        You can install PostgreSQL using the official Termux guide on
+        <a href="https://wiki.termux.com/wiki/Postgresql">PostgreSQL Wiki</a>,
+        or follow the steps below:
+      </p>
+
+      <p>Create the skeleton database:</p>
+      <pre><code>
+mkdir -p $PREFIX/var/lib/postgresql
+initdb $PREFIX/var/lib/postgresql
+</code></pre>
+
+      <p>Starting the database:</p>
+      <pre><code>
+pg_ctl -D $PREFIX/var/lib/postgresql start
+</code></pre>
+
+      <p>Stopping the database:</p>
+      <pre><code>
+pg_ctl -D $PREFIX/var/lib/postgresql stop
+</code></pre>
+
+      <p>Create a user (replace <code>emseh</code> with your username):</p>
+      <pre><code>
+createuser --superuser --pwprompt emseh
+</code></pre>
+
+      <p>Create your database:</p>
+      <pre><code>
+createdb emseh
+</code></pre>
+
+      <p>Access your database with the following command:</p>
+      <pre><code>
+psql emseh
+</code></pre>
+
+      <h4>MySQL/MariaDB Installation on Termux</h4>
+      <p>
+        You can install MySQL/MariaDB using the
+        <a href="https://wiki.termux.com/wiki/MariaDB">official Termux guide</a>
+        or follow the steps below:
+      </p>
+
+      <p>Install the package:</p>
+      <pre><code>
+pkg install mariadb
+</code></pre>
+
+      <p>Start the MySQL server:</p>
+      <pre><code>
+mysqld_safe &
+</code></pre>
+
+      <p>You can connect to the database with this command:</p>
+      <pre><code>
+mysql -u root -p
+</code></pre>
+
+      <h3>Troubleshoot</h3>
+
+      <h4>
+        Phantom Processes Killed: "[Process completed (signal 9) - press Enter]"
+        in Android 12 & 13
+      </h4>
+      <p>
+        If you receive a message saying "[Process completed (signal 9) - press
+        Enter]" at seemingly random intervals, and Termux closes once you press
+        Enter, this might occur while trying to install Ruby using a version
+        manager like ASDF, RVM, or rbenv.
+      </p>
+
+      <p>
+        <strong>Presquite:</strong> You need to enable USB debugging in the
+        Developer options and use tools like adb shell. This
+        <a href="https://developer.android.com/studio/debug/dev-options"
+          >link</a
+        >
+        will guide you through enabling USB debugging in Developer options.
+      </p>
+
+      <p>To enable adb shell, install android-tools on your Termux terminal:</p>
+      <pre><code>
+pkg install android-tools
+</code></pre>
+
+      <p>Run the following command to ensure adb shell is installed:</p>
+      <pre><code>
+adb shell
+</code></pre>
+
+      <h4>Disable the Phantom Process Killer in Android 12 or 13</h4>
+      <p>Follow these steps to disable the Phantom Process Killer:</p>
+
+      <ol>
+        <li>Enable USB debugging, Wireless debugging, and pair the device.</li>
+        <li>In Termux, run the following command to pair with the device:</li>
+        <pre><code>
+adb pair localhost:39677
+</code></pre>
+        <li>
+          Run the following commands to connect and disable the Phantom Process
+          Killer:
+        </li>
+        <pre><code>
+adb connect localhost:48965
+adb shell "/system/bin/device_config set_sync_disabled_for_tests persistent"
+adb shell "/system/bin/device_config put activity_manager max_phantom_processes 2147483647"
+adb shell settings put global settings_enable_monitor_phantom_procs false
+</code></pre>
+      </ol>
+
+      <p>Verify the Phantom Process Killer is disabled by running:</p>
+      <pre><code>
+adb shell "/system/bin/dumpsys activity settings | grep max_phantom_processes"
+adb shell "/system/bin/device_config get activity_manager max_phantom_processes"
+</code></pre>
+
+      <h3>Handling MySQL Common Errors</h3>
+
+      <h4>Error: libdl.so: No such file or directory</h4>
+      <p>
+        If you encounter this error when using the command
+        <code>rails new project_name -d mysql</code> and try to run
+        <code>rails server</code>:
+      </p>
+
+      <pre><code>
+/home/emseh/.asdf/installs/ruby/3.3.5/lib/ruby/3.3.0/bundled_gems.rb:75:in `require': libdl.so: cannot open shared object file: No such file or directory - /home/emseh/.asdf/installs/ruby/3.3.5/lib/ruby/gems/3.3.0/gems/mysql2-0.5.6/lib/mysql2/mysql2.so (LoadError)
+</code></pre>
+
+      <p>Make sure to install the MySQL2 gem with the following command:</p>
+
+      <pre><code>
+gem install mysql2
+</code></pre>
+
+      <h4>Error: ActiveRecord::ConnectionNotEstablished</h4>
+      <p>
+        If you encounter the error
+        <code>ActiveRecord::ConnectionNotEstablished</code> with a message
+        similar to:
+      </p>
+
+      <pre><code>
+Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+</code></pre>
+
+      <p>Follow these steps to resolve the issue:</p>
+
+      <p>
+        Edit your <code>config/database.yml</code> file and replace the host
+        value from <code>localhost</code> to <code>127.0.0.1</code>, as shown
+        below:
+      </p>
+
+      <pre><code>
+default: &default
+adapter: mysql2
+encoding: utf8mb4
+pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+username: root
+password:
+host: <%= ENV.fetch("DB_HOST") { "127.0.0.1" } %>
+</code></pre>
+
+      <h3>Handling PostgreSQL Common Errors</h3>
+
+      <h4>Error: ActiveRecord::ConnectionNotEstablished</h4>
+      <p>If you encounter the following error:</p>
+
+      <pre><code>
+ActiveRecord::ConnectionNotEstablished (connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: No such file or directory)
+</code></pre>
+
+      <p>Follow these steps to resolve the issue:</p>
+
+      <p>
+        Edit your <code>config/database.yml</code> file, and ensure the host,
+        port, username, and password are set correctly, as shown below:
+      </p>
+
+      <pre><code>
+default: &default
+adapter: postgresql
+encoding: unicode
+pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+host: localhost
+port: 5432
+username: emseh
+password: password
+</code></pre>
+
+      <p>
+        Make sure to replace the <code>username</code> and
+        <code>password</code> with your own values.
+      </p>
+    </section>
+
+    <section>
+      <h2>Conclusion</h2>
+      <p>
+        With this guide, you’ve successfully set up Ruby on Rails on Termux
+        using Ubuntu and configured your development environment. You’ve also
+        learned how to handle common issues with MySQL and PostgreSQL and
+        disable the phantom process killer on Android 12/13.
+      </p>
+
+      <p>
+        For more details and future updates, check out the official resources:
+      </p>
+      <ul>
+        <li>
+          <a href="https://rubyonrails.org/">Ruby on Rails Official Site</a>
+        </li>
+        <li>
+          <a href="https://wiki.termux.com/wiki/Termux_Wiki">Termux Wiki</a>
+        </li>
+      </ul>
+    </section>
+  </body>
 </html>
